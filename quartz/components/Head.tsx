@@ -45,10 +45,18 @@ export default (() => {
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link rel="stylesheet" href={googleFontHref(cfg.theme)} />
-            <link
-              rel="stylesheet"
-              href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&text=%E3%81%82&display=swap"
-            />
+            {fileData.slug === "index" && (
+              <>
+                <link
+                  rel="stylesheet"
+                  href="https://fonts.googleapis.com/css2?family=Elsie:wght@400;900&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap"
+                />
+                <link
+                  rel="stylesheet"
+                  href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&text=%E3%81%82&display=swap"
+                />
+              </>
+            )}
             {cfg.theme.typography.title && (
               <link rel="stylesheet" href={googleFontSubsetHref(cfg.theme, cfg.pageTitle)} />
             )}
