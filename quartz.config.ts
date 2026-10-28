@@ -1,4 +1,5 @@
 import { QuartzConfig } from "./quartz/cfg"
+import * as Component from "./quartz/components"
 import * as Plugin from "./quartz/plugins"
 
 /**
@@ -14,7 +15,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "en-US",
-    baseUrl: "my-blog.vercel.app",
+    baseUrl: "abhineethvs.vercel.app",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "modified",
     theme: {
@@ -75,7 +76,7 @@ const config: QuartzConfig = {
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
-      Plugin.ContentPage(),
+      Plugin.ContentPage({ pageBody: Component.PortfolioPage() }),
       Plugin.FolderPage(),
       Plugin.TagPage(),
       Plugin.ContentIndex({

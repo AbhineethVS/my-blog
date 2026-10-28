@@ -1,16 +1,29 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzComponentProps } from "./quartz/components/types"
+
+const isStandardContentPage = (page: QuartzComponentProps) =>
+  page.fileData.slug !== "index" && page.fileData.slug !== "portfolio"
+const hasQuartzSidebar = (page: QuartzComponentProps) => page.fileData.slug !== "index"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
-  header: [],
+  header: [
+    Component.ConditionalRender({
+      component: Component.Darkmode(),
+      condition: (page) => page.fileData.slug === "index",
+    }),
+  ],
   afterBody: [],
-  footer: Component.Footer({
-    links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
-    },
+  footer: Component.ConditionalRender({
+    component: Component.Footer({
+      links: {
+        GitHub: "https://github.com/AbhineethVS",
+        LinkedIn: "https://www.linkedin.com/in/abhineethvs/",
+      },
+    }),
+    condition: isStandardContentPage,
   }),
 }
 
@@ -19,31 +32,60 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
-    Component.ArticleTitle(),
-    Component.ContentMeta(),
-    Component.TagList(),
+    Component.ConditionalRender({
+      component: Component.ArticleTitle(),
+      condition: isStandardContentPage,
+    }),
+    Component.ConditionalRender({
+      component: Component.ContentMeta(),
+      condition: isStandardContentPage,
+    }),
+    Component.ConditionalRender({
+      component: Component.TagList(),
+      condition: isStandardContentPage,
+    }),
   ],
   left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Flex({
-      components: [
-        {
-          Component: Component.Search(),
-          grow: true,
-        },
-        { Component: Component.Darkmode() },
-        { Component: Component.ReaderMode() },
-      ],
+    Component.ConditionalRender({
+      component: Component.PageTitle(),
+      condition: hasQuartzSidebar,
     }),
-    Component.Explorer(),
+    Component.ConditionalRender({
+      component: Component.MobileOnly(Component.Spacer()),
+      condition: hasQuartzSidebar,
+    }),
+    Component.ConditionalRender({
+      component: Component.Flex({
+        components: [
+          {
+            Component: Component.Search(),
+            grow: true,
+          },
+          { Component: Component.Darkmode() },
+        ],
+      }),
+      condition: hasQuartzSidebar,
+    }),
+    Component.ConditionalRender({
+      component: Component.Explorer(),
+      condition: hasQuartzSidebar,
+    }),
   ],
   right: [
-    Component.Graph(),
-    Component.DesktopOnly(Component.TableOfContents()),
-    Component.Backlinks(),
+    Component.ConditionalRender({
+      component: Component.Graph(),
+      condition: isStandardContentPage,
+    }),
+    Component.ConditionalRender({
+      component: Component.DesktopOnly(Component.TableOfContents()),
+      condition: isStandardContentPage,
+    }),
+    Component.ConditionalRender({
+      component: Component.Backlinks(),
+      condition: isStandardContentPage,
+    }),
   ],
 }
 
