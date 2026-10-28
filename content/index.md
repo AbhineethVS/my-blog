@@ -9,6 +9,6 @@ cssclasses:
 Building Parayoo<br>
 CSE at College of Engineering Trivandrum, Kerala
 
-[[ABOUT ME|About me]]
+[[ABOUT ME|About me]] · [[portfolio|Portfolio]]
 
 [LinkedIn](https://www.linkedin.com/in/abhineethvs/) · [GitHub](https://github.com/AbhineethVS) · [X](https://x.com/abhineethvs)

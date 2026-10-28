@@ -45,7 +45,7 @@ export default (() => {
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" />
             <link rel="stylesheet" href={googleFontHref(cfg.theme)} />
-            {fileData.slug === "index" && (
+            {(fileData.slug === "index" || fileData.slug === "portfolio") && (
               <>
                 <link
                   rel="stylesheet"

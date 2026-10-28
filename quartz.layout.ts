@@ -1,5 +1,10 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzComponentProps } from "./quartz/components/types"
+
+const isStandardContentPage = (page: QuartzComponentProps) =>
+  page.fileData.slug !== "index" && page.fileData.slug !== "portfolio"
+const hasQuartzSidebar = (page: QuartzComponentProps) => page.fileData.slug !== "index"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
@@ -18,7 +23,7 @@ export const sharedPageComponents: SharedLayout = {
         LinkedIn: "https://www.linkedin.com/in/abhineethvs/",
       },
     }),
-    condition: (page) => page.fileData.slug !== "index",
+    condition: isStandardContentPage,
   }),
 }
 
@@ -27,29 +32,29 @@ export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
     Component.ConditionalRender({
       component: Component.Breadcrumbs(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
     Component.ConditionalRender({
       component: Component.ArticleTitle(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
     Component.ConditionalRender({
       component: Component.ContentMeta(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
     Component.ConditionalRender({
       component: Component.TagList(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
   ],
   left: [
     Component.ConditionalRender({
       component: Component.PageTitle(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: hasQuartzSidebar,
     }),
     Component.ConditionalRender({
       component: Component.MobileOnly(Component.Spacer()),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: hasQuartzSidebar,
     }),
     Component.ConditionalRender({
       component: Component.Flex({
@@ -59,28 +64,27 @@ export const defaultContentPageLayout: PageLayout = {
             grow: true,
           },
           { Component: Component.Darkmode() },
-          { Component: Component.ReaderMode() },
         ],
       }),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: hasQuartzSidebar,
     }),
     Component.ConditionalRender({
       component: Component.Explorer(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: hasQuartzSidebar,
     }),
   ],
   right: [
     Component.ConditionalRender({
       component: Component.Graph(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
     Component.ConditionalRender({
       component: Component.DesktopOnly(Component.TableOfContents()),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
     Component.ConditionalRender({
       component: Component.Backlinks(),
-      condition: (page) => page.fileData.slug !== "index",
+      condition: isStandardContentPage,
     }),
   ],
 }
